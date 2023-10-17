@@ -3,17 +3,17 @@
 ## Installation
 
 ```sh
-npm install conedevelopment/qkie
+npm install @conedevelopment/qkie
 
 # or
 
-yarn add conedevelopment/qkie
+yarn add @conedevelopment/qkie
 ```
 
 ## Usage
 
 ```js
-import Cookie from 'conedevelopment/qkie';
+import Cookie from '@conedevelopment/qkie';
 
 const handler = new Cookie();
 ```
