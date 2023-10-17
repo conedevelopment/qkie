@@ -1,6 +1,16 @@
 export default class Cookie
 {
     /**
+     * Make a new Cookie instance.
+     *
+     * @return {void}
+     */
+    constructor()
+    {
+        //
+    }
+
+    /**
      * Set a cookie value for the given key.
      *
      * @param  {string}  key
