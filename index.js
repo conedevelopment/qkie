@@ -5,9 +5,9 @@ export default class Cookie
      *
      * @return {void}
      */
-    constructor()
+    constructor(namespace = '')
     {
-        //
+        this.namespace = namespace;
     }
 
     /**
@@ -22,6 +22,8 @@ export default class Cookie
      */
     set(key, value, expires = null, path = '/', options = {})
     {
+        key = this.namespace + key;
+
         const pairs = Object.assign({
             [key]: value,
             expires: expires instanceof Date ? expires.toUTCString() : expires,
@@ -42,6 +44,8 @@ export default class Cookie
      */
     get(key, value = null)
     {
+        key = this.namespace + key;
+
         const cookie = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
 
         return (cookie && cookie[2]) ? cookie[2] : value;
@@ -55,6 +59,8 @@ export default class Cookie
      */
     isset(key)
     {
+        key = this.namespace + key;
+
         return document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)')) !== null;
     }
 
@@ -66,6 +72,8 @@ export default class Cookie
      */
     remove(key)
     {
+        key = this.namespace + key;
+
         this.set(key, null, 'Thu, 01 Jan 1970 00:00:01 GMT');
     }
 }
