@@ -13,15 +13,43 @@ yarn add conedevelopment/qkie
 ## Usage
 
 ```js
-import Cookies from 'conedevelopment/qkie';
+import Cookie from 'conedevelopment/qkie';
 
-const handler = new Cookies();
+const handler = new Cookie();
 ```
 
 ### Setting Cookies
 
+```js
+handler.set('theme', 'dark');
+
+// Passing extra options
+handler.set('theme', 'dark', new Date('2024-10-10'), '/', {
+    SameSite: 'Lax',
+    Secure: true,
+});
+```
+
 ### Getting Cookies
+
+```js
+let theme = handler.get('theme');
+
+// With default value
+
+let theme = handler.get('theme', 'dark');
+```
 
 ### Checking Cookies
 
+```js
+if (handler.isset('theme')) {
+    //
+}
+```
+
 ### Deleting Cookies
+
+```js
+handler.remove('theme');
+```
