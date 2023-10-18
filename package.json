@@ -1,6 +1,6 @@
 {
   "name": "@conedevelopment/qkie",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple cookie management.",
   "main": "index.js",
   "scripts": {
