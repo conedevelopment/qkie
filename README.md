@@ -1,4 +1,4 @@
-# qkie - Simple cookie managment
+# qkie - Simple cookie management
 
 ## Installation
 
