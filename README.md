@@ -18,7 +18,7 @@ import Cookie from '@conedevelopment/qkie';
 const handler = new Cookie();
 ```
 
-### Setting Cookies
+### Writing Cookies
 
 ```js
 handler.set('theme', 'dark');
@@ -30,7 +30,7 @@ handler.set('theme', 'dark', new Date('2024-10-10'), '/', {
 });
 ```
 
-### Getting Cookies
+### Reading Cookies
 
 ```js
 let theme = handler.get('theme');
