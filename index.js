@@ -3,6 +3,7 @@ export default class Cookie
     /**
      * Make a new Cookie instance.
      *
+     * @param  {string}  namespace
      * @return {void}
      */
     constructor(namespace = '')
@@ -22,7 +23,7 @@ export default class Cookie
      */
     set(key, value, expires = null, path = '/', options = {})
     {
-        key = this.namespace + key;
+        key = this._qualify(key);
 
         const pairs = Object.assign({
             [key]: value,
@@ -44,7 +45,7 @@ export default class Cookie
      */
     get(key, value = null)
     {
-        key = this.namespace + key;
+        key = this._escape(this._qualify(key));
 
         const cookie = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
 
@@ -59,7 +60,7 @@ export default class Cookie
      */
     isset(key)
     {
-        key = this.namespace + key;
+        key = this._escape(this._qualify(key));
 
         return document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)')) !== null;
     }
@@ -72,8 +73,30 @@ export default class Cookie
      */
     remove(key)
     {
-        key = this.namespace + key;
+        key = this._qualify(key);
 
         this.set(key, null, 'Thu, 01 Jan 1970 00:00:01 GMT');
+    }
+
+    /**
+     * Qualify the given key.
+     *
+     * @param  {string}  key
+     * @return {string}
+     */
+    _qualify(key)
+    {
+        return this.namespace + key;
+    }
+
+    /**
+     * Esacpe the given key.
+     *
+     * @param  {string}  key
+     * @return {string}
+     */
+    _escape(key)
+    {
+        return key = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 }
