@@ -25,13 +25,16 @@ export default class Cookie
     {
         key = this._qualify(key);
 
-        const pairs = Object.assign({
+        const cookie = {
             [key]: value,
             expires: expires instanceof Date ? expires.toUTCString() : expires,
             path,
-        }, { SameSite: 'Lax', Secure: true }, options);
+            SameSite: 'Lax',
+            Secure: true,
+            ...options,
+        };
 
-        document.cookie = Object.entries(pairs)
+        document.cookie = Object.entries(cookie)
             .reduce((stack, entry) => stack.concat(entry.join('=')), [])
             .join('; ');
     }
