@@ -1,11 +1,11 @@
 <p>
-    <br>
-    <picture>
-      <source media="(prefers-color-scheme: light)" srcset="./.github/qkie-logo-dark.svg">
-      <source media="(prefers-color-scheme: dark)" srcset="./.github/qkie-logo-light.svg">
-      <img alt="qkie" width="120" src="./.github/qkie-logo-dark.svg">
-    </picture>
-    <br>
+  <br>
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="./.github/qkie-logo-dark.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="./.github/qkie-logo-light.svg">
+    <img alt="qkie" width="120" src="./.github/qkie-logo-dark.svg">
+  </picture>
+  <br>
 </p>
 
 
@@ -52,7 +52,7 @@ If you are NOT using a bundler, you can use [JS modules in the browser](https://
 
 ```html
 <script type="module">
-    import Cookie from "./qkie.js";
+    import Cookie from './qkie.js';
 </script>
 ```
 When you load the script that imports `qkie` add `type="module"` and make sure you use the exact path to the location (primarily relative).
