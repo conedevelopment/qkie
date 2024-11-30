@@ -176,7 +176,7 @@ Removes the cookie by setting its expiration date to a past date.
 
 ## License
 
-MIT License. See LICENSE for more information.
+MIT License. See [LICENSE](https://github.com/conedevelopment/qkie/blob/master/LICENSE) for more information.
 
 ## Contribution
 
