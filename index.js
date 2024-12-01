@@ -4,7 +4,6 @@ export default class Cookie
      * Make a new Cookie instance.
      *
      * @param  {string}  namespace
-     * @return {void}
      */
     constructor(namespace = '')
     {
@@ -15,7 +14,7 @@ export default class Cookie
      * Set a cookie value for the given key.
      *
      * @param  {string}  key
-     * @param  {string} value
+     * @param  {string}  value
      * @param  {Date|string|null}  expires
      * @param  {string}  path
      * @param  {object}  options
@@ -34,8 +33,11 @@ export default class Cookie
             ...options,
         };
 
+        /** @type {string[]} */
+        const initialValue = [];
+
         document.cookie = Object.entries(cookie)
-            .reduce((stack, entry) => stack.concat(entry.join('=')), [])
+            .reduce((stack, entry) => stack.concat(entry.join('=')), initialValue)
             .join('; ');
     }
 
@@ -43,8 +45,8 @@ export default class Cookie
      * Get the cookie with the given key.
      *
      * @param  {string}  key
-     * @param  {mixed}  value
-     * @return {mixed}
+     * @param  {*}  value
+     * @return {*}
      */
     get(key, value = null)
     {
@@ -59,7 +61,7 @@ export default class Cookie
      * Determine if the given cookie exists.
      *
      * @param  {string}  key
-     * @return {bool}
+     * @return {boolean}
      */
     isset(key)
     {
@@ -78,7 +80,7 @@ export default class Cookie
     {
         key = this._qualify(key);
 
-        this.set(key, null, 'Thu, 01 Jan 1970 00:00:01 GMT');
+        this.set(key, '', 'Thu, 01 Jan 1970 00:00:01 GMT');
     }
 
     /**
