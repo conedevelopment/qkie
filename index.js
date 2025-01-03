@@ -16,7 +16,7 @@ export default class Cookie
      *
      * @param  {string}  key
      * @param  {string} value
-     * @param  {Date|string|null}  expires
+     * @param  {Date|string|number|null}  expires - Number of days, Date, or string for expiry.
      * @param  {string}  path
      * @param  {object}  options
      * @return {void}
@@ -25,9 +25,17 @@ export default class Cookie
     {
         key = this._qualify(key);
 
+        if (typeof expires === 'number') {
+            const date = new Date();
+            date.setDate(date.getDate() + expires);
+            expires = date.toUTCString();
+        } else if (expires instanceof Date) {
+            expires = expires.toUTCString();
+        }
+
         const cookie = {
             [key]: value,
-            expires: expires instanceof Date ? expires.toUTCString() : expires,
+            expires,
             path,
             SameSite: 'Lax',
             Secure: true,
