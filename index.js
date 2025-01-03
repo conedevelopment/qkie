@@ -76,8 +76,6 @@ export default class Cookie
      */
     remove(key)
     {
-        key = this._qualify(key);
-
         this.set(key, null, 'Thu, 01 Jan 1970 00:00:01 GMT');
     }
 
