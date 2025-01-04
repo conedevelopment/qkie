@@ -75,7 +75,7 @@ cookie.set('user', 'john_doe', new Date('2025-01-01'), '/', { Secure: true, Same
 
 - **key**: The name of the cookie.
 - **value**: The value to store.
-- **expires**: The cookie's expiration date (optional).
+- **expires**: The cookie's expiration date (optional). It can be JS date object, a number (in days) or a string (UTC).
 - **path**: The path for which the cookie is valid (default is `/`).
 - **options**: Additional cookie settings like `Secure`, `SameSite`. These two options will always get default settings for better security.
 
@@ -123,7 +123,8 @@ Here’s an example that demonstrates setting, getting, and removing cookies:
 const cookie = new Cookie('app_');
 
 // Set cookies
-cookie.set('session_id', '123abc', new Date('2024-12-31'), '/');
+cookie.set('session_id', '123abc', new Date('2025-12-31'), '/');
+cookie.set('session_id', '123abc', 30, '/');
 cookie.set('theme', 'dark', null, '/');
 
 // Get cookies
