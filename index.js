@@ -24,11 +24,18 @@ export default class Cookie
     {
         key = this._qualify(key);
 
+        value = encodeURIComponent(value).replace(
+            /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+            decodeURIComponent
+        );
+
         if (typeof expires === 'number') {
             const date = new Date();
             date.setDate(date.getDate() + expires);
-            expires = date.toUTCString();
-        } else if (expires instanceof Date) {
+            expires = date;
+        }
+
+        if (expires instanceof Date) {
             expires = expires.toUTCString();
         }
 
@@ -58,11 +65,12 @@ export default class Cookie
      */
     get(key, value = null)
     {
-        key = this._escape(this._qualify(key));
+        key = this._qualify(key);
 
         const cookie = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
+        const value = (cookie && cookie[2]) ? cookie[2] : value;
 
-        return (cookie && cookie[2]) ? cookie[2] : value;
+        return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
     }
 
     /**
@@ -73,7 +81,7 @@ export default class Cookie
      */
     isset(key)
     {
-        key = this._escape(this._qualify(key));
+        key = this._qualify(key);
 
         return document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)')) !== null;
     }
@@ -97,17 +105,9 @@ export default class Cookie
      */
     _qualify(key)
     {
-        return this.namespace + key;
-    }
-
-    /**
-     * Esacpe the given key.
-     *
-     * @param  {string}  key
-     * @return {string}
-     */
-    _escape(key)
-    {
-        return key = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return encodeURIComponent(this.namespace + key)
+            .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+            .replace(/%(2[346B]|5E|60|7C)/g, window.decodeURIComponent)
+            .replace(/[()]/g, window.escape)
     }
 }
