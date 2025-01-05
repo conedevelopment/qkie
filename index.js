@@ -26,7 +26,7 @@ export default class Cookie
 
         value = encodeURIComponent(value).replace(
             /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
-            decodeURIComponent
+            window.decodeURIComponent
         );
 
         if (typeof expires === 'number') {
@@ -70,7 +70,7 @@ export default class Cookie
         const cookie = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
         const value = (cookie && cookie[2]) ? cookie[2] : value;
 
-        return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+        return value.replace(/(%[\dA-F]{2})+/gi, window.decodeURIComponent);
     }
 
     /**
