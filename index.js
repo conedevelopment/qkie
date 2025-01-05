@@ -105,9 +105,8 @@ export default class Cookie
      */
     _qualify(key)
     {
-        return encodeURIComponent(this.namespace + key)
+        return window.encodeURIComponent(this.namespace + key)
             .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-            .replace(/%(2[346B]|5E|60|7C)/g, window.decodeURIComponent)
-            .replace(/[()]/g, window.escape)
+            .replace(/%(2[346B]|5E|60|7C)/g, window.decodeURIComponent);
     }
 }
