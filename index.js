@@ -26,7 +26,7 @@ export default class Cookie
 
         value = encodeURIComponent(value).replace(
             /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
-            window.decodeURIComponent
+            decodeURIComponent
         );
 
         if (typeof expires === 'number') {
@@ -63,14 +63,15 @@ export default class Cookie
      * @param  {*}  value
      * @return {*}
      */
-    get(key, value = null)
+    get(key, value = '')
     {
         key = this._qualify(key);
 
         const cookie = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
-        const value = (cookie && cookie[2]) ? cookie[2] : value;
 
-        return value.replace(/(%[\dA-F]{2})+/gi, window.decodeURIComponent);
+        value = (cookie && cookie[2]) ? cookie[2] : value;
+
+        return value.toString().replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
     }
 
     /**
@@ -105,8 +106,8 @@ export default class Cookie
      */
     _qualify(key)
     {
-        return window.encodeURIComponent(this.namespace + key)
+        return encodeURIComponent(this.namespace + key)
             .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-            .replace(/%(2[346B]|5E|60|7C)/g, window.decodeURIComponent);
+            .replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent);
     }
 }
