@@ -52,6 +52,7 @@ export default class Cookie
         const initialValue = [];
 
         document.cookie = Object.entries(cookie)
+            .filter((entry) => entry[1] !== null)
             .reduce((stack, entry) => stack.concat(entry.join('=')), initialValue)
             .join('; ');
     }
