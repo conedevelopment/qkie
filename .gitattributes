@@ -2,3 +2,6 @@
 /.github export-ignore
 /.gitignore export-ignore
 /package-lock.json export-ignore
+/index.test.js export-ignore
+/vitest.config.js export-ignore
+
