@@ -48,12 +48,9 @@ export default class Cookie
             ...options,
         };
 
-        /** @type {string[]} */
-        const initialValue = [];
-
         document.cookie = Object.entries(cookie)
-            .filter((entry) => entry[1] !== null)
-            .reduce((stack, entry) => stack.concat(entry.join('=')), initialValue)
+            .filter(([, v]) => v !== null && v !== false)
+            .map(([k, v]) => v === true ? k : [k, v].join('='))
             .join('; ');
     }
 
@@ -66,9 +63,7 @@ export default class Cookie
      */
     get(key, value = '')
     {
-        key = this._qualify(key);
-
-        const cookie = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
+        const cookie = document.cookie.match(this._getCookiePattern(key));
 
         value = (cookie && cookie[2]) ? cookie[2] : value;
 
@@ -83,9 +78,7 @@ export default class Cookie
      */
     isset(key)
     {
-        key = this._qualify(key);
-
-        return document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)')) !== null;
+        return document.cookie.match(this._getCookiePattern(key)) !== null;
     }
 
     /**
@@ -97,6 +90,17 @@ export default class Cookie
     remove(key)
     {
         this.set(key, '', 'Thu, 01 Jan 1970 00:00:01 GMT');
+    }
+
+    /**
+     * Get the cookie regex pattern for the given key.
+     *
+     * @param  {string}  key
+     * @return {RegExp}
+     */
+    _getCookiePattern(key)
+    {
+        return new RegExp('(^| )' + this._qualify(key) + '=([^;]+)');
     }
 
     /**
